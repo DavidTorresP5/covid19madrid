@@ -157,5 +157,5 @@ def update_figure(municipios):
 
 
 if __name__ == "__main__":
-    app.run_server(debug=True, port=8080)
+    app.run_server(debug=True)
 
