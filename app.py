@@ -31,7 +31,9 @@ df = df[
     ]
 ]
 df["fecha_informe"] = pd.to_datetime(df["fecha_informe"])
-
+df["tasa_incidencia_acumulada_ultimos_14dias"] = (
+    df["tasa_incidencia_acumulada_ultimos_14dias"].round(0).astype(int)
+)
 df = df.rename(
     columns={
         "municipio_distrito": "Municipio/Distrito",
@@ -52,9 +54,17 @@ controls = dbc.Card(
     [
         dbc.FormGroup(
             [
+                html.H3("Incidencia acumulada por municipio o distrito"),
+                html.P(
+                    "Busca uno o varios municipios o distritos de la Comunidad de Madrid para ver la evolución de su Incidencia Acumulada de casos de covid-19 en los últimos 14 días."
+                ),
                 html.P(
                     "La incidencia acumulada (IA) se define como la proporción de individuos sanos que desarrollan la enfermedad a lo largo de un periodo determinado. La incidencia acumulada proporciona una estimación de la probabilidad o el riesgo de que un individuo libre de una determinada enfermedad la desarrolle durante un período especificado de tiempo."
                 ),
+            ]
+        ),
+        dbc.FormGroup(
+            [
                 dbc.Label("Elige municipio o distrito:"),
                 dcc.Dropdown(
                     id="in-municipio",
@@ -63,7 +73,7 @@ controls = dbc.Card(
                     multi=True,
                 ),
             ]
-        )
+        ),
     ],
     body=True,
 )
@@ -74,7 +84,12 @@ app.layout = dbc.Container(
         html.H1("Incidencia acumulada Covid-19 CAM"),
         html.Hr(),
         dbc.Row(
-            [dbc.Col(controls, md=4), dbc.Col(dcc.Graph(id="out-lineplot"), md=8),],
+            [
+                dbc.Col(controls, md=4),
+                dbc.Col(
+                    dcc.Graph(id="out-lineplot", config={"displayModeBar": False}), md=8
+                ),
+            ],
             align="center",
         ),
     ],
@@ -85,7 +100,8 @@ app.layout = dbc.Container(
 
 
 @app.callback(
-    Output("out-lineplot", "figure"), [Input("in-municipio", "value")],
+    Output("out-lineplot", "figure"),
+    [Input("in-municipio", "value")],
 )
 
 # Update functions
@@ -144,6 +160,7 @@ def update_figure(municipios):
             showgrid=True,
             spikedash="solid",
         ),
+        xaxis_tickformat="%Y-%m-%d",
         yaxis=dict(
             showspikes=True,
             # spikemode = 'across',
@@ -157,5 +174,4 @@ def update_figure(municipios):
 
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
-
+    app.run_server(debug=False)
