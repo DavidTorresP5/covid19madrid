@@ -17,10 +17,18 @@ app = dash.Dash(
 server = app.server
 
 # Read the file from CAM official website
+"""
 df = pd.read_json(
     "http://datos.comunidad.madrid/catalogo/dataset/7da43feb-8d4d-47e0-abd5-3d022d29d09e/resource/877fa8f5-cd6c-4e44-9df5-0fb60944a841/download/covid19_tia_muni_y_distritos_s.json",
     orient="split",
 )
+"""
+
+df = pd.read_json(
+    "data/covid19_tia_muni_y_distritos_s.json",
+    orient="split",
+)
+
 df = df[
     [
         "municipio_distrito",
