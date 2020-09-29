@@ -92,7 +92,7 @@ app.layout = dbc.Container(
             [
                 dbc.Col(controls, md=4),
                 dbc.Col(
-                    dcc.Graph(id="out-lineplot", config={"displayModeBar": False}), md=8
+                    dcc.Graph(id="out-lineplot", config={"displaylogo": False}), md=8
                 ),
             ],
             align="center",
@@ -160,19 +160,12 @@ def update_figure(municipios):
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
         xaxis=dict(
             showspikes=True,
-            # spikemode = 'across',
             showline=True,
             showgrid=True,
             spikedash="solid",
         ),
         xaxis_tickformat="%Y-%m-%d",
-        yaxis=dict(
-            showspikes=True,
-            # spikemode = 'across',
-            showline=True,
-            showgrid=True,
-            spikedash="solid",
-        ),
+        yaxis=dict(showspikes=True, showline=True, showgrid=True, spikedash="solid"),
     )
 
     return fig
