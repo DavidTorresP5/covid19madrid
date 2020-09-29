@@ -98,6 +98,12 @@ controls = dbc.Card(
                     href="https://github.com/DavidTorresP5/covid19madrid",
                     target="_blank",
                 ),
+                html.Br(),
+                html.A(
+                    "Datos Abiertos CAM",
+                    href="http://datos.comunidad.madrid/catalogo/dataset/covid19_tia_muni_y_distritos",
+                    target="_blank",
+                ),
             ]
         ),
     ],
