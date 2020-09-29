@@ -88,7 +88,7 @@ controls = dbc.Card(
 # Layout
 app.layout = dbc.Container(
     [
-        html.H1("Incidencia acumulada Covid-19 CAM"),
+        html.H1("Madrid Covid-19. Incidencia Acumulada"),
         html.Hr(),
         dbc.Row(
             [
