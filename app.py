@@ -62,9 +62,11 @@ controls = dbc.Card(
         dbc.FormGroup(
             [
                 html.H3("Incidencia acumulada por municipio o distrito"),
+                html.Br(),
                 html.P(
                     "Busca uno o varios municipios o distritos de la Comunidad de Madrid para ver la evolución de su Incidencia Acumulada de casos de covid-19 en los últimos 14 días."
                 ),
+                html.Br(),
                 html.P(
                     "La incidencia acumulada (IA) se define como la proporción de individuos sanos que desarrollan la enfermedad a lo largo de un periodo determinado. La incidencia acumulada proporciona una estimación de la probabilidad o el riesgo de que un individuo libre de una determinada enfermedad la desarrolle durante un período especificado de tiempo."
                 ),
@@ -78,6 +80,23 @@ controls = dbc.Card(
                     options=opciones_municipios,
                     value=["Fuenlabrada", "Getafe", "Alcobendas"],
                     multi=True,
+                ),
+            ]
+        ),
+        dbc.FormGroup(
+            [
+                html.Br(),
+                html.P("Desarrollado por:"),
+                html.A(
+                    "@DavidTweid",
+                    href="https://www.twitter.com/DavidTweid",
+                    target="_blank",
+                ),
+                html.Br(),
+                html.A(
+                    "Github",
+                    href="https://github.com/DavidTorresP5/covid19madrid",
+                    target="_blank",
                 ),
             ]
         ),
@@ -137,6 +156,7 @@ def update_figure(municipios):
         y1=500,
         line=dict(color="red", width=1, dash="dash"),
     )
+    """
     fig.add_shape(
         type="line",
         x0=min(df_filtr["Fecha"]),
@@ -145,17 +165,20 @@ def update_figure(municipios):
         y1=150,
         line=dict(color="orangered", width=1, dash="dash"),
     )
+    """
 
     fig.add_annotation(
         x=df_filtr["Fecha"].drop_duplicates().nsmallest(4).iloc[-1],
         y=520,
         text="IA límite Ministerio de Sanidad",
     )
+    """
     fig.add_annotation(
         x=df_filtr["Fecha"].drop_duplicates().nsmallest(4).iloc[-1],
         y=170,
         text="Transmisión comunitaria",
     )
+    """
     fig.update_annotations(dict(xref="x", yref="y"))
 
     fig.update_layout(
