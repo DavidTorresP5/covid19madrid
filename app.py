@@ -9,6 +9,8 @@ import pandas as pd
 
 # App
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.JOURNAL])
+app.title = "Madrid Covid-19"
+
 
 server = app.server
 
